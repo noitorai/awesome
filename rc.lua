@@ -14,6 +14,9 @@ local menubar = require("menubar")
 -- Load Debian menu entries
 require("debian.menu")
 
+require("volume")
+
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -197,6 +200,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(volume_widget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -472,4 +476,6 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
---awful.util.spawn_with_shell("xmodmap ~/.xmodmap")
+awful.util.spawn_with_shell("xmodmap /home/ishii/.xmodmap")
+awful.util.spawn_with_shell("nm-applet")
+awful.util.spawn_with_shell("xscreensaver -no-splash")
