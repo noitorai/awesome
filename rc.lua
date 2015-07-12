@@ -71,10 +71,12 @@ layouts =
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {}
+tags = {
+    names = {'terminal', 'web', 'emacs', 'work'}
+}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag(tags.names, s, layouts[1])
 end
 -- }}}
 
@@ -252,7 +254,27 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+--              end)
+              end),
+
+    -- my configuration
+    awful.key({ "Mod1", "Control" }, "l",    function () awful.util.spawn("xscreensaver-command --lock") end),
+--    awful.key({ "Mod1", "Control" }, "l",   function () awful.util.spawn("xscreensaver-command --lock") end)
+
+    awful.key({                   }, "XF86AudioRaiseVolume",
+              function ()
+                  awful.util.spawn("amixer -c 1 -- sset Master 10%+")
+                  awful.util.spawn_with_shell("mplayer /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga")
+              end),
+    awful.key({                   }, "XF86AudioLowerVolume",
+              function ()
+                  awful.util.spawn("amixer -c 1 -- sset Master 10%-")
+                  awful.util.spawn_with_shell("mplayer /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga")
+              end),
+    awful.key({                   }, "XF86AudioMute",
+              function ()
+                  awful.util.spawn("amixer -D pulse sset Master 1+ toggle")
+             end)
 )
 
 clientkeys = awful.util.table.join(
@@ -376,4 +398,4 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-awful.util.spawn_with_shell("xmodmap ~/.xmodmap")
+--awful.util.spawn_with_shell("xmodmap ~/.xmodmap")
