@@ -11,7 +11,7 @@ require("naughty")
 require("debian.menu")
 
 require("volume")
-
+require("battery")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -109,6 +109,9 @@ mytextclock = awful.widget.textclock({ align = "right" })
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
+-- Create a battery widget
+batterywidget = widget({type = "textbox", name = "batterywidget", align = "right" })
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -186,11 +189,17 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         volume_widget,
+        batterywidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
 end
+
+awful.hooks.timer.register(60, function()
+    batterywidget.text = batteryInfo("BAT0")
+end)
+
 -- }}}
 
 -- {{{ Mouse bindings
