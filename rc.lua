@@ -111,6 +111,7 @@ mysystray = widget({ type = "systray" })
 
 -- Create a battery widget
 batterywidget = widget({type = "textbox", name = "batterywidget", align = "right" })
+batterywidget2 = widget({type = "textbox", name = "batterywidget2", align = "right" })
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -190,6 +191,7 @@ for s = 1, screen.count() do
         mytextclock,
         volume_widget,
         batterywidget,
+        batterywidget2,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -198,6 +200,7 @@ end
 
 awful.hooks.timer.register(60, function()
     batterywidget.text = batteryInfo("BAT0")
+    batterywidget2.text = batteryInfo("BAT1")
 end)
 
 -- }}}
