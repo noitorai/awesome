@@ -44,6 +44,9 @@ function batteryInfo(adapter)
                , bg       = beautiful.bg_focus
         })
       end
+    elseif sta:match("Unknown") then
+      icon = ""
+      percent = "%"
     else
       -- If we are neither charging nor discharging, assume that we are on A/C
       battery = "A/C"
