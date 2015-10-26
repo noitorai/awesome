@@ -277,6 +277,13 @@ globalkeys = awful.util.table.join(
     awful.key({ "Mod1", "Control" }, "l",    function () awful.util.spawn("xscreensaver-command --lock") end),
 --    awful.key({ "Mod1", "Control" }, "l",   function () awful.util.spawn("xscreensaver-command --lock") end)
 
+    -- Brightness
+    awful.key({ }, "XF86MonBrightnessDown", function ()
+    awful.util.spawn("xbacklight -dec 15") end),
+    awful.key({ }, "XF86MonBrightnessUp", function ()
+    awful.util.spawn("xbacklight -inc 15") end),
+
+
     awful.key({                   }, "XF86AudioRaiseVolume",
               function ()
                   awful.util.spawn("amixer -c 1 -- sset Master 10%+")
