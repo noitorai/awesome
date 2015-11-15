@@ -499,5 +499,5 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 awful.util.spawn_with_shell("xmodmap /home/ishii/.xmodmap")
-awful.util.spawn_with_shell("nm-applet")
+awful.util.spawn_with_shell("pgrep nm-applet >/dev/null || nm-applet")
 awful.util.spawn_with_shell("xscreensaver -no-splash")
