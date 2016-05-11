@@ -124,6 +124,7 @@ mytextclock = awful.widget.textclock()
 
 -- Create a battery widget
 batterywidget = wibox.widget.textbox()
+batterywidget2 = wibox.widget.textbox()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -205,6 +206,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(batterywidget)
+    right_layout:add(batterywidget2)
     right_layout:add(volume_widget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
@@ -221,6 +223,7 @@ end
 batterywidget_timer = timer({timeout = 1})
 batterywidget_timer:connect_signal("timeout", function()
   batterywidget:set_text(batteryInfo("BAT0"))
+  batterywidget2:set_text(batteryInfo("BAT1"))
 end)
 batterywidget_timer:start()
 
